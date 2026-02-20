@@ -1,6 +1,4 @@
 -- Database Setup for Expired Products Finder
--- Created by: Human Developer (not AI 😊)
--- Date: 2026-02-18
 
 -- Create database if not exists
 CREATE DATABASE IF NOT EXISTS expired_products_db;
