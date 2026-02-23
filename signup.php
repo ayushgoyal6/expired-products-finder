@@ -21,8 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         handle_error("Username is required");
     } elseif (strlen($username) < 3) {
         handle_error("Username must be at least 3 characters");
-    } elseif (!preg_match('/^[a-zA-Z0-9_@.-]+$/', $username)) {
-        handle_error("Username contains invalid characters");
+    } elseif (strlen($username) > 33) {
+        handle_error("Username must be 33 characters or less");
+    } elseif (!preg_match('/^[a-zA-Z]/', $username)) {
+        handle_error("Username must start with a letter");
+    } elseif (!preg_match('/^[a-zA-Z0-9_-]+$/', $username)) {
+        handle_error("Username can only contain letters, numbers, underscores, and hyphens");
     }
     
     if (empty($email)) {
@@ -102,9 +106,27 @@ if (!isset($_SESSION['csrf_token'])) {
             const errorDiv = document.getElementById(fieldId + '-error');
             
             field.addEventListener('input', function() {
-                if (!validationFn(this.value)) {
+                let isValid;
+                let message;
+                
+                if (typeof errorMsg === 'function') {
+                    // Dynamic error message based on validation
+                    if (validationFn(this.value)) {
+                        isValid = true;
+                        message = '';
+                    } else {
+                        isValid = false;
+                        message = errorMsg(this.value);
+                    }
+                } else {
+                    // Static error message
+                    isValid = validationFn(this.value);
+                    message = errorMsg;
+                }
+                
+                if (!isValid) {
                     this.classList.add('error');
-                    errorDiv.textContent = errorMsg;
+                    errorDiv.textContent = message;
                     errorDiv.classList.add('show');
                 } else {
                     this.classList.remove('error');
@@ -115,8 +137,18 @@ if (!isset($_SESSION['csrf_token'])) {
 
         document.addEventListener('DOMContentLoaded', function() {
             validateField('username', function(val) {
-                return val.length >= 3 && val.length <= 33;
-            }, 'Username must be between 3 and 33 characters');
+                if (val.length < 3) return false;
+                if (val.length > 33) return false;
+                if (!/^[a-zA-Z]/.test(val)) return false; // Must start with letter
+                if (!/^[a-zA-Z0-9_-]+$/.test(val)) return false; // Only letters, numbers, underscore, hyphen
+                return true;
+            }, function(val) {
+                if (val.length < 3) return 'Username must be at least 3 characters';
+                if (val.length > 33) return 'Username must be 33 characters or less';
+                if (!/^[a-zA-Z]/.test(val)) return 'Username must start with a letter';
+                if (!/^[a-zA-Z0-9_-]+$/.test(val)) return 'Username can only contain letters, numbers, underscores, and hyphens';
+                return '';
+            });
             
             validateField('email', function(val) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) && val.length <= 33;
