@@ -1076,6 +1076,28 @@ body.signup-page .auth-form {
     justify-content: center;
 }
 
+/* Center signup page button specifically - MOST SPECIFIC */
+body.signup-page .container .auth-form .form-group .btn,
+body.signup-page .container .auth-form form .form-group .btn {
+    display: block !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    font-size: 1em !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+    min-height: 44px !important;
+    border: none !important;
+}
+
+/* Add spacing to the button's form-group - MOST SPECIFIC */
+body.signup-page .container .auth-form .form-group:last-of-type {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 /* Responsive auth form adjustments */
 @media (max-width: 1024px) {
     body.login-page .auth-form {

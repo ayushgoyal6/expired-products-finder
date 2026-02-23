@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['login_attempts'] = 0;
-                    handle_success("Login successful! Redirecting...", 'expired.php');
+                    handle_success("Login successful", 'expired.php');
                 } else {
                     handle_error("Invalid password");
                     $_SESSION['login_attempts']++;
