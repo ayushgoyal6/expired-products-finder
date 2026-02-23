@@ -76,7 +76,7 @@ $products = $all_products;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expired Products - Product Manager</title>
+    <title>Expired Products</title>
     <link rel="stylesheet" href="style.css">
     <script>
         function toggleMenu() {

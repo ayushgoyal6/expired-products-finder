@@ -217,7 +217,7 @@ if (isset($_GET['edit'])) {
 <body>
     <div class="container">
         <header>
-            <h1>➕ Add Product - Product Manager</h1>
+            <h1>➕ Add Product</h1>
             <div class="user-info">
                 <span>Welcome, <?php echo $_SESSION['username']; ?>!</span>
                 <a href="logout.php" class="btn btn-danger" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
