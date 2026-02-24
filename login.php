@@ -113,6 +113,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const password = document.getElementById('password').value;
             let isValid = true;
             
+            // Clear previous errors
+            document.getElementById('username').classList.remove('error');
+            document.getElementById('password').classList.remove('error');
+            document.getElementById('username-error').textContent = '';
+            document.getElementById('password-error').textContent = '';
+            document.getElementById('username-error').classList.remove('show');
+            document.getElementById('password-error').classList.remove('show');
+            
             if (username.length < 3) {
                 document.getElementById('username').classList.add('error');
                 document.getElementById('username-error').textContent = 'Username must be at least 3 characters';
