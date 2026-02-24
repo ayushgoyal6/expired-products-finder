@@ -211,8 +211,8 @@ if (!isset($_SESSION['csrf_token'])) {
                         <div class="validation-error" id="confirm_password-error"></div>
                     </div>
                     
-                    <div class="form-group" style="margin-top: 20px;">
-                        <button type="submit" class="btn" style="display: block !important; margin: 0 !important; width: 100% !important; padding: 12px !important; font-size: 1em !important; box-sizing: border-box !important; border-radius: 8px !important; min-height: 44px !important; border: none !important; text-align: center !important;">Sign Up</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn">Sign Up</button>
                     </div>
                 </form>
                 

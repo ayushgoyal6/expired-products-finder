@@ -1092,9 +1092,25 @@ body.signup-page .container .auth-form form .form-group .btn {
     border: none !important;
 }
 
-/* Add spacing to the button's form-group - MOST SPECIFIC */
+/* Login button specific styling with consistent margins */
+body.login-page .container .auth-form .btn {
+    display: block !important;
+    margin: 30px 0 20px 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    font-size: 1em !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+    min-height: 44px !important;
+    border: none !important;
+}
+
+/* Add proper spacing to the signup button's form-group */
 body.signup-page .container .auth-form .form-group:last-of-type {
-    margin: 0 !important;
+    margin-top: 30px !important;
+    margin-bottom: 0 !important;
     padding: 0 !important;
 }
 
@@ -1144,11 +1160,10 @@ body.signup-page .container .auth-form .form-group:last-of-type {
         font-size: 16px;
     }
     
-    body.login-page .btn {
-        padding: 13px 20px;
-        font-size: 15px;
-        margin-top: 30px;
-        margin-bottom: 20px;
+    body.login-page .container .auth-form .btn {
+        padding: 13px 20px !important;
+        font-size: 15px !important;
+        margin: 30px 0 20px 0 !important;
     }
     
     body.login-page .auth-form h2 {
@@ -1178,11 +1193,10 @@ body.signup-page .container .auth-form .form-group:last-of-type {
         font-size: 16px;
     }
     
-    body.login-page .btn {
-        padding: 12px 20px;
-        font-size: 14px;
-        margin-top: 30px;
-        margin-bottom: 20px;
+    body.login-page .container .auth-form .btn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        margin: 30px 0 20px 0 !important;
     }
     
     body.login-page .auth-form h2 {
@@ -1211,9 +1225,10 @@ body.signup-page .container .auth-form .form-group:last-of-type {
 
 .switch-auth {
     text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 25px !important;
+    padding-top: 20px !important;
     border-top: 1px solid #ddd;
+    clear: both;
 }
 
 .switch-auth a {
