@@ -1095,7 +1095,7 @@ body.signup-page .container .auth-form form .form-group .btn {
 /* Login button specific styling with consistent margins */
 body.login-page .container .auth-form .btn {
     display: block !important;
-    margin: 30px 0 20px 0 !important;
+    margin: 20px 0 15px 0 !important;
     width: 100% !important;
     text-align: center !important;
     justify-content: center !important;
@@ -1223,12 +1223,29 @@ body.signup-page .container .auth-form .form-group:last-of-type {
     margin-bottom: 20px;
 }
 
-.switch-auth {
+/* Login page specific switch-auth styles */
+body.login-page .switch-auth {
     text-align: center;
-    margin-top: 25px !important;
-    padding-top: 20px !important;
-    border-top: 1px solid #ddd;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    border-top: 0px solid #ddd;
     clear: both;
+}
+
+/* Signup page specific switch-auth styles */
+body.signup-page .switch-auth {
+    text-align: center;
+    margin-top: 0px !important;
+    padding-top: 10px !important;
+    border-top: 0px solid #ddd;
+    clear: both;
+}
+
+/* Signup page last form-group specific styling */
+body.signup-page .container .auth-form .form-group:last-of-type {
+    margin-top: 20px !important;
+    margin-bottom: 0px !important;
+    padding: 0 !important;
 }
 
 .switch-auth a {
