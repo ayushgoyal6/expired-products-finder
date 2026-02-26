@@ -227,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (query.length >= 2) {
                 searchTimeout = setTimeout(() => {
-                // You could implement AJAX search suggestions here
-            }, 300);
+                    // AJAX search suggestions could be implemented here
+                }, 300);
             }
         });
         
@@ -378,12 +378,53 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Print functionality
     const printButton = document.createElement('button');
-    printButton.className = 'btn btn-secondary';
+    printButton.className = 'btn btn-secondary print-button';
     printButton.innerHTML = '🖨️ Print Products';
-    printButton.style.position = 'fixed';
-    printButton.style.bottom = '20px';
-    printButton.style.right = '20px';
-    printButton.style.zIndex = '1000';
+    
+    // Responsive positioning for print button
+    function updatePrintButtonPosition() {
+        if (window.innerWidth <= 768) {
+            // Mobile positioning
+            printButton.style.position = 'fixed';
+            printButton.style.bottom = '15px';
+            printButton.style.right = '15px';
+            printButton.style.left = '15px';
+            printButton.style.width = 'auto';
+            printButton.style.maxWidth = '200px';
+            printButton.style.margin = '0 auto';
+            printButton.style.zIndex = '1000';
+            printButton.style.fontSize = '0.9em';
+            printButton.style.padding = '12px 16px';
+        } else if (window.innerWidth <= 1024) {
+            // Tablet positioning
+            printButton.style.position = 'fixed';
+            printButton.style.bottom = '20px';
+            printButton.style.right = '20px';
+            printButton.style.left = 'auto';
+            printButton.style.width = 'auto';
+            printButton.style.maxWidth = '180px';
+            printButton.style.zIndex = '1000';
+            printButton.style.fontSize = '0.95em';
+            printButton.style.padding = '12px 20px';
+        } else {
+            // Desktop positioning
+            printButton.style.position = 'fixed';
+            printButton.style.bottom = '30px';
+            printButton.style.right = '30px';
+            printButton.style.left = 'auto';
+            printButton.style.width = 'auto';
+            printButton.style.maxWidth = '200px';
+            printButton.style.zIndex = '1000';
+            printButton.style.fontSize = '1em';
+            printButton.style.padding = '12px 24px';
+        }
+    }
+    
+    // Initial positioning
+    updatePrintButtonPosition();
+    
+    // Update position on window resize
+    window.addEventListener('resize', updatePrintButtonPosition);
     
     printButton.addEventListener('click', function() {
         window.print();
@@ -399,43 +440,148 @@ document.addEventListener('DOMContentLoaded', function() {
     const printStyle = document.createElement('style');
     printStyle.textContent = `
         @media print {
-            button { display: none !important; }
-            .form-section, .search-section, header { display: none !important; }
-            .container { box-shadow: none; }
+            /* Hide all non-essential elements */
+            button, .btn, .print-button { display: none !important; }
+            .form-section, .search-section, header, .main-nav, .mobile-menu, .hamburger-menu { display: none !important; }
+            .container { 
+                box-shadow: none; 
+                border-radius: 0;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* Reset body for printing */
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 12pt;
+                line-height: 1.4;
+                overflow: visible;
+                width: 100%;
+            }
             
             /* Expand all accordion content for printing */
             .category-accordion-content,
-            .product-accordion-content {
+            .product-accordion-content,
+            .accordion-content {
                 max-height: none !important;
                 display: block !important;
+                height: auto !important;
+                overflow: visible !important;
             }
             
+            /* Hide toggle buttons */
             .category-accordion-toggle,
-            .product-accordion-toggle {
+            .product-accordion-toggle,
+            .accordion-toggle {
                 display: none !important;
             }
             
             /* Ensure proper page breaks */
-            .category-accordion-item {
+            .category-accordion-item,
+            .accordion-item {
                 break-inside: avoid;
                 page-break-inside: avoid;
+                margin-bottom: 20pt;
+                border: 1pt solid #ccc;
+                border-radius: 5pt;
             }
             
             .product-item {
                 break-inside: avoid;
                 page-break-inside: avoid;
+                margin-bottom: 15pt;
+                border: 1pt solid #ddd;
+                border-radius: 3pt;
             }
             
             /* Show all products clearly */
             .products-section {
                 display: block !important;
+                padding: 20pt;
             }
             
-            /* Ensure navigation is hidden */
-            .main-nav,
-            .mobile-menu,
-            .hamburger-menu {
+            /* Product details for printing */
+            .product-details {
+                display: block !important;
+                margin-bottom: 10pt;
+            }
+            
+            .product-details p {
+                margin: 5pt 0;
+                font-size: 11pt;
+                line-height: 1.3;
+            }
+            
+            /* Product actions for printing */
+            .product-actions {
                 display: none !important;
+            }
+            
+            /* Category headers for printing */
+            .category-accordion-header,
+            .accordion-header {
+                background: #f5f5f5 !important;
+                border-bottom: 1pt solid #ccc;
+                padding: 10pt !important;
+            }
+            
+            .category-accordion-header h3,
+            .product-summary h3,
+            .product-summary h4 {
+                color: black !important;
+                font-size: 14pt !important;
+                margin: 0 !important;
+            }
+            
+            /* Expiry status for printing */
+            .expiry-status {
+                color: black !important;
+                font-weight: bold;
+                font-size: 10pt;
+            }
+            
+            /* Summary cards for printing */
+            .summary-cards {
+                display: block !important;
+                margin: 20pt 0;
+            }
+            
+            .summary-card {
+                display: inline-block !important;
+                width: 30% !important;
+                margin: 0 1.5% 15pt 1.5% !important;
+                border: 1pt solid #ccc;
+                padding: 10pt !important;
+                text-align: center;
+                vertical-align: top;
+            }
+            
+            .summary-card h3 {
+                font-size: 12pt !important;
+                margin: 5pt 0;
+            }
+            
+            .summary-card p {
+                font-size: 16pt !important;
+                font-weight: bold;
+                margin: 5pt 0;
+            }
+            
+            /* Product count for printing */
+            .product-count {
+                text-align: center;
+                font-size: 11pt;
+                font-style: italic;
+                margin: 15pt 0;
+                color: #666;
+            }
+            
+            /* Ensure content fits page width */
+            * {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
             }
         }
     `;

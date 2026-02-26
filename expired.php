@@ -79,21 +79,17 @@ $products = $all_products;
     <title>Expired Products</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        function toggleMenu() {
+        function toggleMobileMenu() {
             const hamburger = document.querySelector('.hamburger-menu');
             const mobileMenu = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('mobileMenuOverlay');
             
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+        }
+
+        function showUserInfo() {
+            toggleMobileMenu();
+            alert('Welcome, <?php echo $_SESSION['username']; ?>!');
         }
         
         // Search validation function
@@ -168,41 +164,30 @@ $products = $all_products;
             });
         });
         
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const hamburger = document.querySelector('.hamburger-menu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            }
-        });
     </script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>⚠️ Expired Products</h1>
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="user-info">
-                <span>Welcome, <?php echo $_SESSION['username']; ?>!</span>
                 <a href="logout.php" class="btn btn-danger" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
             </div>
-            <div class="hamburger-menu" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            
+            <!-- Mobile Menu -->
             <div class="mobile-menu" id="mobileMenu">
-                <a href="expired.php" class="active">⚠️ Expired Products</a>
+                <a href="expired.php">⚠️ Expired Products</a>
                 <a href="index.php">➕ Add Product</a>
                 <a href="all_products.php">📦 All Products</a>
-                <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')">🚪 Logout</a>
+                <a href="logout.php" class="logout-link" onclick="return confirm('Are you sure you want to logout?')">🚪 Logout</a>
             </div>
         </header>
         
-        <!-- Mobile Menu Overlay -->
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMenu()"></div>
         
         <!-- Navigation -->
         <nav class="main-nav">

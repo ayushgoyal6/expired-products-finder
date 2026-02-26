@@ -32,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (empty($product_name) || empty($product_type) || empty($location) || 
                     empty($quantity) || empty($category) || empty($manufacturing_date) || empty($expiry_date)) {
                     $errors[] = "All fields are required";
-                } elseif (strlen($product_name) < 2 || strlen($product_name) > 100) {
-                    $errors[] = "Product name must be between 2 and 100 characters";
-                } elseif (strlen($location) < 2 || strlen($location) > 200) {
-                    $errors[] = "Location must be between 2 and 200 characters";
+                } elseif (strlen($product_name) < 2 || strlen($product_name) > 33) {
+                    $errors[] = "Product name must be between 2 and 33 characters";
+                } elseif (strlen($location) < 2 || strlen($location) > 33) {
+                    $errors[] = "Location must be between 2 and 33 characters";
                 } elseif (!is_numeric($quantity) || $quantity < 1 || $quantity > 9999) {
                     $errors[] = "Quantity must be between 1 and 9999";
                 } elseif (strtotime($expiry_date) <= strtotime($manufacturing_date)) {
@@ -79,10 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (empty($product_name) || empty($product_type) || empty($location) || 
                     empty($quantity) || empty($category) || empty($manufacturing_date) || empty($expiry_date)) {
                     $errors[] = "All fields are required";
-                } elseif (strlen($product_name) < 2 || strlen($product_name) > 100) {
-                    $errors[] = "Product name must be between 2 and 100 characters";
-                } elseif (strlen($location) < 2 || strlen($location) > 200) {
-                    $errors[] = "Location must be between 2 and 200 characters";
+                } elseif (strlen($product_name) < 2 || strlen($product_name) > 33) {
+                    $errors[] = "Product name must be between 2 and 33 characters";
+                } elseif (strlen($location) < 2 || strlen($location) > 33) {
+                    $errors[] = "Location must be between 2 and 33 characters";
                 } elseif (!is_numeric($quantity) || $quantity < 1 || $quantity > 9999) {
                     $errors[] = "Quantity must be between 1 and 9999";
                 } elseif (strtotime($expiry_date) <= strtotime($manufacturing_date)) {
@@ -168,6 +168,19 @@ if (isset($_GET['edit'])) {
             }
         }
 
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function showUserInfo() {
+            toggleMobileMenu();
+            alert('Welcome, <?php echo $_SESSION['username']; ?>!');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             validateField('product_name', function(val) {
                 return val.length >= 2 && val.length <= 33;
@@ -183,60 +196,29 @@ if (isset($_GET['edit'])) {
             }, 'Quantity must be between 1 and 9999');
         });
     </script>
-    <script>
-        function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger-menu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('mobileMenuOverlay');
-            
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-        
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const hamburger = document.querySelector('.hamburger-menu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            }
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>➕ Add Product</h1>
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="user-info">
-                <span>Welcome, <?php echo $_SESSION['username']; ?>!</span>
                 <a href="logout.php" class="btn btn-danger" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
             </div>
-            <div class="hamburger-menu" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            
+            <!-- Mobile Menu -->
             <div class="mobile-menu" id="mobileMenu">
                 <a href="expired.php">⚠️ Expired Products</a>
-                <a href="index.php" class="active">➕ Add Product</a>
+                <a href="index.php">➕ Add Product</a>
                 <a href="all_products.php">📦 All Products</a>
-                <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')">🚪 Logout</a>
+                <a href="logout.php" class="logout-link" onclick="return confirm('Are you sure you want to logout?')">🚪 Logout</a>
             </div>
         </header>
         
-        <!-- Mobile Menu Overlay -->
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMenu()"></div>
         
         <!-- Navigation -->
         <nav class="main-nav">

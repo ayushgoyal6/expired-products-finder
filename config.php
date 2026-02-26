@@ -124,6 +124,7 @@ function redirect($url) {
 function handle_error($message, $redirect_url = null) {
     $_SESSION['error_message'] = $message;
     if ($redirect_url) {
+        session_write_close();
         redirect($redirect_url);
     }
 }
@@ -131,6 +132,7 @@ function handle_error($message, $redirect_url = null) {
 function handle_success($message, $redirect_url = null) {
     $_SESSION['success_message'] = $message;
     if ($redirect_url) {
+        session_write_close();
         redirect($redirect_url);
     }
 }
